@@ -85,11 +85,8 @@ export default function LoginPage() {
         <div className="flex-1 p-10 sm:p-14 flex flex-col justify-center bg-white/[0.02] relative">
           <div className="max-w-md w-full mx-auto">
             <div className="mb-10 text-center">
-              <div className="inline-flex items-center justify-center p-3 bg-white/5 rounded-full mb-6 ring-1 ring-white/10">
-                <svg className="w-6 h-6 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" /></svg>
-              </div>
               <h2 className="text-3xl font-bold text-white tracking-tight">Single Sign-On</h2>
-              <p className="mt-3 text-slate-400 font-medium">Pilih jalur otentikasi demo Anda</p>
+              <p className="mt-3 text-slate-400 font-medium">Pilih jalur otentikasi Anda</p>
             </div>
 
             {state?.error && (
@@ -148,7 +145,7 @@ export default function LoginPage() {
             </form>
 
             <div className="mt-8 pt-8 border-t border-white/10 text-center">
-              {pending ? (
+              {pending && (
                 <div className="inline-flex items-center justify-center gap-3 text-sm text-slate-400">
                   <svg className="h-5 w-5 animate-spin text-blue-500" fill="none" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
@@ -156,8 +153,6 @@ export default function LoginPage() {
                   </svg>
                   Mengotentikasi kredensial...
                 </div>
-              ) : (
-                <p className="text-sm text-slate-500">Otentikasi ini disimulasikan untuk keperluan demo portofolio.</p>
               )}
             </div>
           </div>
