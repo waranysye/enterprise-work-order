@@ -37,6 +37,7 @@ async function loginAction(_prev: FormState, formData: FormData): Promise<FormSt
 
 export default function LoginPage() {
   const [state, action, pending] = useActionState(loginAction, {});
+  const [selectedRole, setSelectedRole] = useState<"ADMIN" | "MEMBER" | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   function handleRoleSelect(role: "ADMIN" | "MEMBER") {
