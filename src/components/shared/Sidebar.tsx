@@ -73,32 +73,30 @@ interface SidebarProps {
 export function Sidebar({ role, userName }: SidebarProps) {
   const pathname = usePathname();
 
-  const visibleItems = navItems.filter((item) => !item.adminOnly || role === "ADMIN");
-
-  // Vibe configuration based on role
+  // Minimalist configuration based on role
   const isAd = role === "ADMIN";
-  const asideBg = isAd ? "bg-[#0a0f1d]/90 shadow-blue-900/20" : "bg-[#0b1614]/90 shadow-teal-900/20";
-  const logoBg = isAd ? "bg-blue-600 shadow-blue-500/20" : "bg-teal-600 shadow-teal-500/20";
-  const activeLink = isAd ? "bg-blue-600 text-white shadow-lg shadow-blue-500/20" : "bg-teal-600 text-white shadow-lg shadow-teal-500/20";
-  const hoverLink = isAd ? "hover:bg-blue-500/10 hover:text-blue-300" : "hover:bg-teal-500/10 hover:text-teal-300";
+  const asideBg = "bg-slate-950 border-r border-slate-800 shadow-2xl";
+  const logoBg = "bg-white text-slate-900";
+  const activeLink = "bg-white/10 text-white font-semibold";
+  const hoverLink = "hover:bg-white/5 hover:text-white";
 
   return (
-    <aside className={`hidden w-72 shrink-0 flex-col lg:flex backdrop-blur-2xl border-r border-white/5 text-white shadow-2xl z-40 ${asideBg}`}>
+    <aside className={`hidden w-72 shrink-0 flex-col lg:flex z-40 ${asideBg}`}>
       <div className="flex h-full flex-col">
-        <div className="border-b border-white/5 px-6 py-6">
+        <div className="border-b border-white/10 px-6 py-6">
           <div className="flex items-center gap-3">
-            <div className={`flex h-10 w-10 items-center justify-center rounded-3xl text-white shadow-lg ${logoBg}`}>
+            <div className={`flex h-10 w-10 items-center justify-center rounded-xl ${logoBg}`}>
               <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                   d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
               </svg>
             </div>
             <div>
-              <p className="text-sm font-semibold tracking-[0.12em] text-slate-200">
-                {isAd ? "COMMAND CENTER" : "WORKSPACE"}
+              <p className="text-sm font-semibold tracking-wide text-white">
+                WORKSPACE
               </p>
-              <p className={`text-xs ${isAd ? "text-blue-400" : "text-teal-400"}`}>
-                Internal Dashboard
+              <p className="text-xs text-slate-400">
+                {isAd ? "Administrator" : "Team Member"}
               </p>
             </div>
           </div>
@@ -111,8 +109,8 @@ export function Sidebar({ role, userName }: SidebarProps) {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex items-center gap-3 rounded-3xl px-4 py-3 text-sm font-medium transition-all ${
-                  active ? activeLink : `text-slate-400 ${hoverLink}`
+                className={`flex items-center gap-3 rounded-xl px-4 py-3 text-sm transition-all ${
+                  active ? activeLink : `text-slate-400 font-medium ${hoverLink}`
                 }`}
               >
                 {item.icon}
@@ -122,26 +120,24 @@ export function Sidebar({ role, userName }: SidebarProps) {
           })}
         </nav>
 
-        <div className="border-t border-white/5 px-6 py-5">
+        <div className="border-t border-white/10 px-6 py-5">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-800 text-sm font-bold text-white ring-1 ring-white/10">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-800 text-sm font-semibold text-white border border-slate-700">
               {userName.charAt(0).toUpperCase()}
             </div>
             <div className="min-w-0">
               <p className="truncate text-sm font-medium text-white">{userName}</p>
-              <p className={`text-xs font-semibold ${isAd ? "text-blue-400" : "text-teal-400"}`}>{role}</p>
+              <p className="text-xs text-slate-400">{role}</p>
             </div>
           </div>
-          <LogoutButton role={role} />
+          <LogoutButton />
         </div>
       </div>
     </aside>
   );
 }
 
-function LogoutButton({ role }: { role: "ADMIN" | "MEMBER" }) {
-  const hoverClass = role === "ADMIN" ? "hover:border-blue-500/30 hover:bg-blue-500/10 hover:text-blue-300" : "hover:border-teal-500/30 hover:bg-teal-500/10 hover:text-teal-300";
-
+function LogoutButton() {
   async function handleLogout() {
     await fetch("/api/auth/logout", { method: "POST" });
     window.location.href = "/login";
@@ -150,7 +146,7 @@ function LogoutButton({ role }: { role: "ADMIN" | "MEMBER" }) {
   return (
     <button
       onClick={handleLogout}
-      className={`mt-4 flex w-full items-center justify-center gap-2 rounded-3xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-slate-300 transition-all ${hoverClass}`}
+      className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl border border-slate-800 bg-slate-900 px-4 py-3 text-sm font-medium text-slate-300 transition-all hover:bg-slate-800 hover:text-white"
     >
       <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
