@@ -20,7 +20,7 @@ interface UpdateWorkOrderParams {
   userId: string;
 }
 
-export async function createWorkOrder(id_unused: undefined, params: CreateWorkOrderParams) {
+export async function createWorkOrder(params: CreateWorkOrderParams) {
   const { performedBy, userId, deadline, ...data } = params;
 
   const workOrder = await prisma.workOrder.create({

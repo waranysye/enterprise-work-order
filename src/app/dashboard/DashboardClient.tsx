@@ -39,7 +39,7 @@ export function DashboardClient({ stats: initialStats, role, userName }: Props) 
 
   useSocket<TaskWithRelations>("task:created", handleTaskUpdate);
   useSocket<TaskWithRelations>("task:updated", handleTaskUpdate);
-  useSocket<{ taskId: string }>("task:deleted", handleTaskUpdate as never);
+  useSocket<{ taskId: string }>("task:deleted", handleTaskUpdate);
 
   const totalTasks = Object.values(stats.tasksByStatus).reduce((a, b) => a + b, 0);
 

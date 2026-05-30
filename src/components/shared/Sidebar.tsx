@@ -73,31 +73,22 @@ interface SidebarProps {
 export function Sidebar({ role, userName }: SidebarProps) {
   const pathname = usePathname();
 
-  // Minimalist configuration based on role
-  const isAd = role === "ADMIN";
-  const asideBg = "bg-slate-950 border-r border-slate-800 shadow-2xl";
-  const logoBg = "bg-white text-slate-900";
-  const activeLink = "bg-white/10 text-white font-semibold";
-  const hoverLink = "hover:bg-white/5 hover:text-white";
+  const visibleItems = navItems.filter((item) => !item.adminOnly || role === "ADMIN");
 
   return (
-    <aside className={`hidden w-72 shrink-0 flex-col lg:flex z-40 ${asideBg}`}>
+    <aside className="hidden w-72 shrink-0 flex-col bg-slate-950 text-white lg:flex overflow-hidden">
       <div className="flex h-full flex-col">
         <div className="border-b border-white/10 px-6 py-6">
           <div className="flex items-center gap-3">
-            <div className={`flex h-10 w-10 items-center justify-center rounded-xl ${logoBg}`}>
+            <div className="flex h-10 w-10 items-center justify-center rounded-3xl bg-blue-500 text-white shadow-lg shadow-blue-500/20">
               <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                   d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
               </svg>
             </div>
             <div>
-              <p className="text-sm font-semibold tracking-wide text-white">
-                WORKSPACE
-              </p>
-              <p className="text-xs text-slate-400">
-                {isAd ? "Administrator" : "Team Member"}
-              </p>
+              <p className="text-sm font-semibold tracking-[0.12em] text-slate-200">WORK ORDER</p>
+              <p className="text-xs text-slate-400">Internal Dashboard</p>
             </div>
           </div>
         </div>
@@ -109,8 +100,8 @@ export function Sidebar({ role, userName }: SidebarProps) {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex items-center gap-3 rounded-xl px-4 py-3 text-sm transition-all ${
-                  active ? activeLink : `text-slate-400 font-medium ${hoverLink}`
+                className={`flex items-center gap-3 rounded-3xl px-4 py-3 text-sm font-medium transition ${
+                  active ? "bg-blue-600 text-white shadow-lg shadow-blue-500/10" : "text-slate-300 hover:bg-white/5 hover:text-white"
                 }`}
               >
                 {item.icon}
@@ -122,7 +113,7 @@ export function Sidebar({ role, userName }: SidebarProps) {
 
         <div className="border-t border-white/10 px-6 py-5">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-800 text-sm font-semibold text-white border border-slate-700">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-700 text-sm font-semibold text-white">
               {userName.charAt(0).toUpperCase()}
             </div>
             <div className="min-w-0">
@@ -146,7 +137,7 @@ function LogoutButton() {
   return (
     <button
       onClick={handleLogout}
-      className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl border border-slate-800 bg-slate-900 px-4 py-3 text-sm font-medium text-slate-300 transition-all hover:bg-slate-800 hover:text-white"
+      className="mt-4 flex w-full items-center justify-center gap-2 rounded-3xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-slate-200 transition hover:border-white/20 hover:bg-white/10"
     >
       <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}

@@ -30,7 +30,7 @@ async function loginAction(_prev: FormState, formData: FormData): Promise<FormSt
 
     window.location.href = "/dashboard";
     return {};
-  } catch (error) {
+  } catch {
     return { error: "Terjadi kesalahan koneksi jaringan" };
   }
 }
@@ -124,8 +124,8 @@ export default function LoginPage() {
 
             {/* Hidden form for server action */}
             <form id="sso-form" action={action} className="hidden">
-              <input type="hidden" name="email" value={selectedRole === "ADMIN" ? "admin@gmf.id" : "member@gmf.id"} />
-              <input type="hidden" name="password" value="Admin123!" />
+              <input type="hidden" name="email" value={selectedRole === "ADMIN" ? "admin@gmf.id" : "budi@gmf.id"} />
+              <input type="hidden" name="password" value="Member123!" />
             </form>
 
             <div className="mt-8 pt-8 border-t border-white/10 text-center">

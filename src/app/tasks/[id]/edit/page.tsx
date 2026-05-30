@@ -1,4 +1,5 @@
 import { getSession } from "@/lib/session";
+import { encrypt } from "@/lib/session";
 import { AppShell } from "@/components/shared/AppShell";
 import { getTaskById } from "@/services/taskService";
 import { getActiveMembers } from "@/services/userService";
@@ -12,11 +13,14 @@ export default async function TaskEditPage({ params }: { params: Promise<{ id: s
   if (!session) return null;
 
   const { id } = await params;
-  const task = await getTaskById(id);
+  const [task, token] = await Promise.all([
+    getTaskById(id),
+    encrypt({ userId: session.userId, email: session.email, name: session.name, role: session.role, expiresAt: session.expiresAt }),
+  ]);
 
   if (!task) {
     return (
-      <AppShell role={session.role} userName={session.name}>
+      <AppShell role={session.role} userName={session.name} token={token}>
         <div className="rounded-[2rem] border border-slate-200 bg-white p-12 text-center shadow-sm">
           <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-2xl">📋</div>
           <h1 className="mt-4 text-xl font-semibold text-slate-900">Task tidak ditemukan</h1>
@@ -30,7 +34,7 @@ export default async function TaskEditPage({ params }: { params: Promise<{ id: s
 
   if (session.role === "MEMBER" && task.assigneeId !== session.userId) {
     return (
-      <AppShell role={session.role} userName={session.name}>
+      <AppShell role={session.role} userName={session.name} token={token}>
         <div className="rounded-[2rem] border border-slate-200 bg-white p-12 text-center shadow-sm">
           <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-rose-100 text-2xl">🔒</div>
           <h1 className="mt-4 text-xl font-semibold text-slate-900">Akses Ditolak</h1>
@@ -44,10 +48,10 @@ export default async function TaskEditPage({ params }: { params: Promise<{ id: s
   }
 
   const members = session.role === "ADMIN" ? await getActiveMembers() : [];
-  const serializedTask = serialize(task) as unknown as TaskWithRelations;
+  const serializedTask = JSON.parse(JSON.stringify(task)) as TaskWithRelations;
 
   return (
-    <AppShell role={session.role} userName={session.name}>
+    <AppShell role={session.role} userName={session.name} token={token}>
       <div className="space-y-6">
         {/* Header */}
         <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm shadow-slate-900/5">

@@ -19,11 +19,11 @@ export default async function DashboardLayout({ children }: { children: React.Re
 
   return (
     <SocketProvider token={token}>
-      <div className="min-h-screen bg-slate-100 text-slate-900">
-        <div className="flex min-h-screen overflow-hidden">
+      <div className="h-screen overflow-hidden bg-slate-100 text-slate-900">
+        <div className="flex h-full">
           <Sidebar role={session.role} userName={session.name} />
-          <div className="flex-1 flex flex-col overflow-hidden">
-            <header className="border-b border-slate-200 bg-white/95 px-6 py-4 shadow-sm shadow-slate-900/5 backdrop-blur-xl">
+          <div className="flex flex-1 flex-col overflow-hidden">
+            <header className="shrink-0 border-b border-slate-200 bg-white/95 px-6 py-4 shadow-sm shadow-slate-900/5 backdrop-blur-xl">
               <div className="flex items-center justify-between gap-4">
                 <div className="text-sm text-slate-500">Work order & task management</div>
                 <ConnectionStatus />

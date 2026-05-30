@@ -1,4 +1,5 @@
 import { getSession } from "@/lib/session";
+import { encrypt } from "@/lib/session";
 import { AppShell } from "@/components/shared/AppShell";
 import { WorkOrderForm } from "@/components/work-order/WorkOrderForm";
 import { getWorkOrderById } from "@/services/workOrderService";
@@ -9,9 +10,11 @@ export default async function WorkOrderEditPage({ params }: { params: Promise<{ 
   const session = await getSession();
   if (!session) return null;
 
+  const token = await encrypt({ userId: session.userId, email: session.email, name: session.name, role: session.role, expiresAt: session.expiresAt });
+
   if (session.role !== "ADMIN") {
     return (
-      <AppShell role={session.role} userName={session.name}>
+      <AppShell role={session.role} userName={session.name} token={token}>
         <div className="rounded-[2rem] border border-slate-200 bg-white p-12 text-center shadow-sm">
           <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-rose-100 text-2xl">🔒</div>
           <h1 className="mt-4 text-xl font-semibold text-slate-900">Akses Ditolak</h1>
@@ -32,7 +35,7 @@ export default async function WorkOrderEditPage({ params }: { params: Promise<{ 
 
   if (!workOrder) {
     return (
-      <AppShell role={session.role} userName={session.name}>
+      <AppShell role={session.role} userName={session.name} token={token}>
         <div className="rounded-[2rem] border border-slate-200 bg-white p-12 text-center shadow-sm">
           <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-2xl">📋</div>
           <h1 className="mt-4 text-xl font-semibold text-slate-900">Work order tidak ditemukan</h1>
@@ -45,7 +48,7 @@ export default async function WorkOrderEditPage({ params }: { params: Promise<{ 
   }
 
   return (
-    <AppShell role={session.role} userName={session.name}>
+    <AppShell role={session.role} userName={session.name} token={token}>
       <div className="space-y-6">
         {/* Header */}
         <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm shadow-slate-900/5">

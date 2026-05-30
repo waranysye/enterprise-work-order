@@ -1,4 +1,5 @@
 import { getSession } from "@/lib/session";
+import { encrypt } from "@/lib/session";
 import { getWorkOrders } from "@/services/workOrderService";
 import { AppShell } from "@/components/shared/AppShell";
 import Link from "next/link";
@@ -13,10 +14,13 @@ export default async function WorkOrdersPage() {
   const session = await getSession();
   if (!session) return null;
 
-  const workOrders = await getWorkOrders({});
+  const [workOrders, token] = await Promise.all([
+    getWorkOrders({}),
+    encrypt({ userId: session.userId, email: session.email, name: session.name, role: session.role, expiresAt: session.expiresAt }),
+  ]);
 
   return (
-    <AppShell role={session.role} userName={session.name}>
+    <AppShell role={session.role} userName={session.name} token={token}>
       <div className="space-y-6">
         {/* Header */}
         <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm shadow-slate-900/5">

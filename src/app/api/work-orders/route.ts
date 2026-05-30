@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
     return validationErr(fields);
   }
 
-  const workOrder = await createWorkOrder(undefined, {
+  const workOrder = await createWorkOrder({
     ...parsed.data,
     performedBy: session.name,
     userId: session.userId,
