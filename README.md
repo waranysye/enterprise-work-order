@@ -68,4 +68,4 @@ A modern, enterprise-grade Work Order & Task Management system built to handle r
 - Open two browsers (one Admin, one Member) to test the real-time websocket features seamlessly updating the task board.
 
 ---
-*Built with ❤️ for a Google Internship Portfolio.*
+
