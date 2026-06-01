@@ -125,7 +125,7 @@ export default function LoginPage() {
             {/* Hidden form for server action */}
             <form id="sso-form" action={action} className="hidden">
               <input type="hidden" name="email" value={selectedRole === "ADMIN" ? "admin@gmf.id" : "budi@gmf.id"} />
-              <input type="hidden" name="password" value="Member123!" />
+              <input type="hidden" name="password" value={selectedRole === "ADMIN" ? "Admin123!" : "Member123!"} />
             </form>
 
             <div className="mt-8 pt-8 border-t border-white/10 text-center">

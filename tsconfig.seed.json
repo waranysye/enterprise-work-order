@@ -6,5 +6,5 @@
     "noEmit": false,
     "esModuleInterop": true
   },
-  "include": ["prisma/seed.ts"]
+  "include": ["prisma/seed.ts", "prisma/seed-safe.ts"]
 }
