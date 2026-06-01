@@ -1,78 +1,90 @@
-# Work Order Dashboard
+# Enterprise Work Order Dashboard
 
 > **Internal Work Order & Task Management System**  
 > Sistem manajemen work order dan task real-time yang dirancang untuk meningkatkan produktivitas tim dengan antarmuka yang modern dan intuitif.
 
-![Next.js](https://img.shields.io/badge/Next.js-16.2-black?style=flat-square&logo=next.js)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=flat-square&logo=typescript)
-![Prisma](https://img.shields.io/badge/Prisma-4.16-2D3748?style=flat-square&logo=prisma)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-336791?style=flat-square&logo=postgresql)
-![Socket.io](https://img.shields.io/badge/Socket.io-4.8-010101?style=flat-square&logo=socket.io)
+[![Next.js](https://img.shields.io/badge/Next.js-16.2-black?style=flat-square&logo=next.js)](https://nextjs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Prisma](https://img.shields.io/badge/Prisma-4.16-2D3748?style=flat-square&logo=prisma)](https://www.prisma.io)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-336791?style=flat-square&logo=postgresql&logoColor=white)](https://www.postgresql.org)
+[![Socket.io](https://img.shields.io/badge/Socket.io-4.8-010101?style=flat-square&logo=socket.io)](https://socket.io)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.0-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![Deployed on Railway](https://img.shields.io/badge/Deployed%20on-Railway-7B2FBE?style=flat-square&logo=railway)](https://railway.app)
 
 ---
 
-## 🎯 Fitur Utama
+## 🌐 Live Demo
 
-### 🔐 **Role-Based Access Control**
-- **Admin**: Akses penuh untuk mengelola work orders, tasks, users, dan melihat activity logs
-- **Member**: Akses terbatas untuk melihat dan mengupdate task yang ditugaskan
+**URL:** [https://enterprise-work-order-production.up.railway.app](https://enterprise-work-order-production.up.railway.app)
 
-### 📊 **Dashboard Real-time**
-- Statistik work order dan task yang update secara real-time
-- Visualisasi progress dengan progress bars dan stat cards
+### Demo Credentials
+
+| Role | Email | Password |
+|------|-------|----------|
+| **Administrator** | `admin@gmf.id` | `Admin123!` |
+| **Member** | `budi@gmf.id` | `Member123!` |
+
+> Login page menggunakan simulasi SSO — cukup pilih role yang ingin dicoba.
+
+---
+
+## ✨ Fitur Utama
+
+### 🔐 Role-Based Access Control
+- **Admin** — akses penuh: kelola work orders, tasks, users, dan activity logs
+- **Member** — akses terbatas: lihat dan update task yang ditugaskan
+
+### 📊 Dashboard Real-time
+- Statistik work order dan task yang update secara live via Socket.io
+- Progress bars distribusi task per status
 - Activity log untuk audit trail (Admin only)
-- Notifikasi untuk overdue tasks
+- Indikator overdue tasks dengan highlight visual
 
-### 📋 **Work Order Management**
-- CRUD operations untuk work orders
-- Priority levels (Low, Medium, High)
-- Deadline tracking dengan visual indicators
-- Task count per work order
+### 📋 Work Order Management
+- CRUD operations lengkap (Admin)
+- Priority levels: Low, Medium, High
+- Deadline tracking dengan indikator visual
+- Search dan filter berdasarkan prioritas
 
-### ✅ **Task Management**
-- Kanban board dengan drag & drop functionality
-- 4 status columns: To Do, In Progress, Done, Blocked
-- Real-time synchronization antar users
+### 🗂️ Kanban Board
+- Drag & drop antar kolom status (To Do → In Progress → Done → Blocked)
+- Real-time sync antar user via Socket.io
 - Filter by work order dan assignee
-- Deadline tracking dengan overdue indicators
+- Permission: Member hanya bisa drag task miliknya sendiri
 
-### 🔄 **Real-time Updates**
-- Socket.io integration untuk live updates
+### 🔄 Real-time Collaboration
+- Socket.io WebSocket untuk live updates
+- Optimistic UI updates dengan rollback otomatis jika gagal
 - Connection status indicator
-- Automatic UI refresh saat ada perubahan
-- Multi-user collaboration support
+- Toast notifications untuk setiap perubahan
 
-### 👥 **User Management** (Admin Only)
-- Activate/deactivate user accounts
-- Role assignment (Admin/Member)
-- User activity tracking
+### 👥 User Management (Admin Only)
+- Activate / deactivate user accounts
+- Role management (Admin / Member)
 
-### 📝 **Activity Logging** (Admin Only)
-- Comprehensive audit trail
-- Grouped by date untuk easy navigation
-- Action type categorization dengan visual icons
+### 📝 Activity Log (Admin Only)
+- Audit trail lengkap semua aksi sistem
+- Dikelompokkan per tanggal
+- Kategorisasi action type dengan icon visual
 
 ---
 
 ## 🛠️ Tech Stack
 
-### **Frontend**
-- **Next.js 16.2** - React framework dengan App Router
-- **TypeScript** - Type-safe development
-- **Tailwind CSS 4** - Utility-first CSS framework
-- **@dnd-kit** - Modern drag and drop toolkit
-- **Socket.io Client** - Real-time communication
-- **date-fns** - Date manipulation library
-- **Sonner** - Toast notifications
-
-### **Backend**
-- **Next.js API Routes** - Serverless API endpoints
-- **Prisma ORM** - Type-safe database client
-- **PostgreSQL** - Relational database
-- **Socket.io Server** - WebSocket server
-- **Jose** - JWT authentication
-- **bcryptjs** - Password hashing
-- **Zod** - Schema validation
+| Layer | Technology |
+|-------|-----------|
+| **Framework** | Next.js 16.2 (App Router) |
+| **Language** | TypeScript 5 |
+| **Styling** | Tailwind CSS 4 |
+| **Database** | PostgreSQL |
+| **ORM** | Prisma 4 |
+| **Real-time** | Socket.io 4.8 |
+| **Auth** | JWT via Jose + HTTP-only cookies |
+| **Drag & Drop** | @dnd-kit |
+| **Validation** | Zod |
+| **Notifications** | Sonner |
+| **Date** | date-fns |
+| **Deployment** | Railway |
 
 ---
 
@@ -85,27 +97,26 @@ work-order-dashboard/
 │   ├── seed.ts                # Database seeding
 │   └── migrations/            # Database migrations
 ├── src/
-│   ├── app/                   # Next.js App Router
-│   │   ├── api/              # API routes
-│   │   ├── dashboard/        # Dashboard page
-│   │   ├── board/            # Kanban board
-│   │   ├── work-orders/      # Work order pages
-│   │   ├── tasks/            # Task pages
-│   │   ├── users/            # User management
-│   │   ├── activity-log/     # Activity log
-│   │   └── login/            # Login page
-│   ├── components/           # React components
-│   │   ├── board/           # Kanban components
-│   │   ├── shared/          # Shared components
-│   │   ├── task/            # Task components
-│   │   └── work-order/      # Work order components
-│   ├── hooks/               # Custom React hooks
-│   ├── lib/                 # Utility libraries
-│   ├── providers/           # React context providers
-│   ├── services/            # Business logic layer
-│   └── types/               # TypeScript type definitions
-├── public/                  # Static assets
-└── server.mjs              # Custom server dengan Socket.io
+│   ├── app/
+│   │   ├── api/               # API routes (auth, work-orders, tasks, users, board)
+│   │   ├── dashboard/         # Dashboard page
+│   │   ├── board/             # Kanban board
+│   │   ├── work-orders/       # Work order list & detail
+│   │   ├── tasks/             # Task detail & edit
+│   │   ├── users/             # User management
+│   │   ├── activity-log/      # Activity log
+│   │   └── login/             # Login page
+│   ├── components/
+│   │   ├── board/             # KanbanBoard, KanbanColumn, TaskCard
+│   │   ├── shared/            # AppShell, Sidebar, ConnectionStatus
+│   │   ├── task/              # TaskForm
+│   │   └── work-order/        # WorkOrderForm, TaskCreateForm
+│   ├── hooks/                 # useSocket custom hook
+│   ├── lib/                   # session, prisma, api-helpers, validations
+│   ├── providers/             # SocketProvider
+│   ├── services/              # userService, workOrderService, taskService
+│   └── types/                 # TypeScript type definitions
+└── server.mjs                 # Custom Node.js server + Socket.io
 ```
 
 ---
@@ -114,16 +125,16 @@ work-order-dashboard/
 
 ### Prerequisites
 
-- **Node.js** 20.x atau lebih tinggi
-- **PostgreSQL** 14.x atau lebih tinggi
-- **npm** atau **yarn**
+- **Node.js** >= 20.9.0
+- **PostgreSQL** 14+
+- **npm**
 
 ### Installation
 
 1. **Clone repository**
    ```bash
-   git clone <repository-url>
-   cd work-order-dashboard
+   git clone https://github.com/waranysye/enterprise-work-order.git
+   cd enterprise-work-order
    ```
 
 2. **Install dependencies**
@@ -132,263 +143,128 @@ work-order-dashboard/
    ```
 
 3. **Setup environment variables**
-   
-   Buat file `.env` di root directory:
+
+   Buat file `.env` berdasarkan `.env.example`:
    ```env
-   DATABASE_URL="postgresql://user:password@localhost:5432/work_order_db"
-   JWT_SECRET="your-super-secret-jwt-key-change-this-in-production"
+   DATABASE_URL="postgresql://user:password@localhost:5432/workorder_db"
+   SESSION_SECRET="your-secret-key-minimum-32-characters-long"
+   NEXT_PUBLIC_APP_URL="http://localhost:3000"
+   NODE_ENV="development"
    ```
 
 4. **Setup database**
    ```bash
-   # Generate Prisma Client
-   npm run db:generate
-   
-   # Run migrations
-   npm run db:migrate
-   
-   # Seed database dengan data awal
-   npm run db:seed
+   npm run db:generate   # Generate Prisma Client
+   npm run db:migrate    # Run migrations
+   npm run db:seed       # Seed data awal
    ```
 
-5. **Run development server**
+5. **Jalankan development server**
    ```bash
    npm run dev
    ```
 
-6. **Open browser**
-   
-   Navigate to [http://localhost:3000](http://localhost:3000)
+6. Buka [http://localhost:3000](http://localhost:3000)
 
-### Default Credentials
+### Default Credentials (setelah seed)
 
-Setelah seeding, gunakan credentials berikut untuk login:
-
-**Admin Account:**
-- Email: `admin@gmf.id`
-- Password: `Admin123!`
-
-**Member Account:**
-- Email: `member@gmf.id`
-- Password: `Member123!`
+| Role | Email | Password |
+|------|-------|----------|
+| Admin | `admin@gmf.id` | `Admin123!` |
+| Member | `budi@gmf.id` | `Member123!` |
+| Member | `siti@gmf.id` | `Member123!` |
+| Member | `andi@gmf.id` | `Member123!` |
 
 ---
 
 ## 📜 Available Scripts
 
 ```bash
-# Development
-npm run dev              # Start development server dengan Socket.io
+npm run dev           # Development server (Next.js + Socket.io)
+npm run build         # Production build
+npm start             # Production server
 
-# Build
-npm run build            # Build production bundle
-npm start                # Start production server
+npm run db:generate   # Generate Prisma Client
+npm run db:migrate    # Run migrations (dev)
+npm run db:push       # Push schema tanpa migration
+npm run db:seed       # Seed database
+npm run db:studio     # Buka Prisma Studio
 
-# Database
-npm run db:generate      # Generate Prisma Client
-npm run db:migrate       # Run database migrations
-npm run db:push          # Push schema changes tanpa migration
-npm run db:seed          # Seed database dengan data awal
-npm run db:studio        # Open Prisma Studio (database GUI)
-
-# Code Quality
-npm run lint             # Run ESLint
+npm run lint          # ESLint
 ```
 
 ---
 
-## 🎨 Design System
+## 🔒 Security
 
-### Color Palette
-- **Primary**: Blue (#3B82F6)
-- **Success**: Emerald (#10B981)
-- **Warning**: Amber (#F59E0B)
-- **Danger**: Rose (#F43F5E)
-- **Neutral**: Slate (#64748B)
-
-### Typography
-- **Font Family**: Inter, system-ui
-- **Heading**: Semibold, tracking-tight
-- **Body**: Regular, leading-6
-
-### Components
-- **Rounded corners**: 2rem (32px) untuk cards utama
-- **Shadows**: Soft shadows dengan slate-900/5
-- **Transitions**: Smooth transitions (150-300ms)
-- **Spacing**: Consistent 4px grid system
-
----
-
-## 🔒 Security Features
-
-- **JWT Authentication** dengan secure HTTP-only cookies
-- **Password Hashing** menggunakan bcryptjs
-- **Role-Based Authorization** di API routes
-- **Input Validation** dengan Zod schemas
-- **SQL Injection Protection** via Prisma ORM
-- **XSS Protection** via React's built-in escaping
-
----
-
-## 📊 Database Schema
-
-### Models
-
-**User**
-- Authentication & authorization
-- Role-based access (ADMIN/MEMBER)
-- Account status (active/inactive)
-
-**WorkOrder**
-- Title, description, priority
-- Deadline tracking
-- Task relationship
-
-**Task**
-- Title, description, status
-- Assignee relationship
-- Work order relationship
-- Deadline tracking
-
-**ActivityLog**
-- Audit trail untuk semua actions
-- User, work order, dan task references
-- Timestamp tracking
+- JWT authentication dengan HTTP-only cookies (tidak accessible via JavaScript)
+- Password hashing dengan bcryptjs (salt rounds: 10)
+- Role-based authorization di setiap API route
+- Input validation dengan Zod di semua endpoint
+- SQL injection protection via Prisma ORM
+- CSRF protection via SameSite cookie policy
 
 ---
 
 ## 🌐 API Endpoints
 
-### Authentication
-- `POST /api/auth/login` - User login
-- `POST /api/auth/logout` - User logout
-- `GET /api/auth/me` - Get current user
+### Auth
+```
+POST   /api/auth/login
+POST   /api/auth/logout
+GET    /api/auth/me
+```
 
 ### Work Orders
-- `GET /api/work-orders` - List work orders
-- `POST /api/work-orders` - Create work order (Admin)
-- `GET /api/work-orders/[id]` - Get work order detail
-- `PATCH /api/work-orders/[id]` - Update work order (Admin)
-- `DELETE /api/work-orders/[id]` - Delete work order (Admin)
+```
+GET    /api/work-orders
+POST   /api/work-orders          (Admin)
+GET    /api/work-orders/:id
+PATCH  /api/work-orders/:id      (Admin)
+DELETE /api/work-orders/:id      (Admin)
+POST   /api/work-orders/:id/tasks (Admin)
+```
 
 ### Tasks
-- `POST /api/work-orders/[id]/tasks` - Create task (Admin)
-- `PATCH /api/tasks/[id]` - Update task
-- `DELETE /api/tasks/[id]` - Delete task (Admin)
+```
+PATCH  /api/tasks/:id
+DELETE /api/tasks/:id            (Admin)
+```
 
 ### Users
-- `GET /api/users` - List users (Admin)
-- `POST /api/users` - Create user (Admin)
-- `PATCH /api/users/[id]` - Update user (Admin)
-- `GET /api/users/members` - List active members
+```
+GET    /api/users                (Admin)
+POST   /api/users                (Admin)
+PATCH  /api/users/:id            (Admin)
+GET    /api/users/members
+```
 
-### Dashboard
-- `GET /api/dashboard/stats` - Get dashboard statistics
-
-### Activity Log
-- `GET /api/activity-logs` - Get activity logs (Admin)
-
-### Board
-- `GET /api/board` - Get kanban board data
-
----
-
-## 🔄 Real-time Events
-
-### Socket.io Events
-
-**Task Events:**
-- `task:created` - New task created
-- `task:updated` - Task updated
-- `task:deleted` - Task deleted
-
-**Work Order Events:**
-- `workorder:created` - New work order created
-- `workorder:updated` - Work order updated
-- `workorder:deleted` - Work order deleted
+### Other
+```
+GET    /api/dashboard/stats
+GET    /api/activity-logs        (Admin)
+GET    /api/board
+```
 
 ---
 
-## 🎯 Best Practices Implemented
+## 🔄 Socket.io Events
 
-### Code Quality
-- ✅ TypeScript untuk type safety
-- ✅ ESLint untuk code linting
-- ✅ Consistent code formatting
-- ✅ Component composition pattern
-- ✅ Custom hooks untuk reusable logic
-
-### Performance
-- ✅ Server-side rendering (SSR)
-- ✅ Optimistic UI updates
-- ✅ Efficient re-rendering dengan React hooks
-- ✅ Database query optimization dengan Prisma
-- ✅ Connection pooling
-
-### Security
-- ✅ Environment variables untuk secrets
-- ✅ Secure authentication flow
-- ✅ Authorization checks di setiap endpoint
-- ✅ Input validation dan sanitization
-- ✅ SQL injection protection
-
-### UX/UI
-- ✅ Responsive design (mobile-first)
-- ✅ Loading states dan error handling
-- ✅ Toast notifications untuk feedback
-- ✅ Smooth animations dan transitions
-- ✅ Accessibility considerations
-
----
-
-## 📝 Future Enhancements
-
-- [ ] Email notifications untuk deadline reminders
-- [ ] File attachments untuk work orders dan tasks
-- [ ] Comments/discussion threads per task
-- [ ] Advanced filtering dan search
-- [ ] Export data ke Excel/PDF
-- [ ] Mobile app (React Native)
-- [ ] Task templates
-- [ ] Time tracking per task
-- [ ] Gantt chart view
-- [ ] Custom fields untuk work orders
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Please follow these steps:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+```
+task:created      → Board & dashboard update otomatis
+task:updated      → Status/assignee change sync real-time
+task:deleted      → Task removal sync real-time
+```
 
 ---
 
 ## 📄 License
 
-This project is licensed under the MIT License.
+MIT License — bebas digunakan untuk keperluan pembelajaran dan portofolio.
 
 ---
 
 ## 👨‍💻 Author
 
-**Your Name**  
-Portfolio Project - Internal Work Order Dashboard
-
----
-
-## 🙏 Acknowledgments
-
-- Next.js team untuk amazing framework
-- Prisma team untuk excellent ORM
-- Tailwind CSS untuk utility-first CSS
-- Socket.io untuk real-time capabilities
-- Vercel untuk deployment platform
-
----
-
-**Built with ❤️ using Next.js, TypeScript, and PostgreSQL**
+Dibuat sebagai portofolio project — Enterprise Work Order Dashboard  
+Deployed di [Railway](https://railway.app) · Source di [GitHub](https://github.com/waranysye/enterprise-work-order)
