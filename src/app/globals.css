@@ -13,7 +13,7 @@
 
 :root {
   color-scheme: light;
-  --background: #f8fafc;
+  --background: #f1f5f9;
   --foreground: #0f172a;
 }
 
@@ -31,11 +31,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--background);
-  background-image: 
-    radial-gradient(at 40% 20%, rgba(59, 130, 246, 0.15) 0px, transparent 50%),
-    radial-gradient(at 80% 0%, rgba(147, 197, 253, 0.15) 0px, transparent 50%),
-    radial-gradient(at 0% 50%, rgba(236, 72, 153, 0.1) 0px, transparent 50%);
-  background-attachment: fixed;
 }
 
 * {
@@ -43,7 +38,7 @@ body {
 }
 
 ::selection {
-  background: rgba(59, 130, 246, 0.25);
+  background: rgba(59, 130, 246, 0.2);
   color: #0f172a;
 }
 
@@ -53,8 +48,8 @@ button, input, textarea, select {
 
 /* Premium Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
@@ -62,12 +57,12 @@ button, input, textarea, select {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.4);
+  background: rgba(148, 163, 184, 0.35);
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(100, 116, 139, 0.6);
+  background: rgba(100, 116, 139, 0.5);
 }
 
 /* Glassmorphism Utilities */
@@ -97,7 +92,7 @@ button, input, textarea, select {
 @keyframes slideUpFade {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
@@ -105,6 +100,30 @@ button, input, textarea, select {
   }
 }
 
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 .animate-slide-up {
-  animation: slideUpFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: slideUpFade 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
