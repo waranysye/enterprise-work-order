@@ -4,7 +4,8 @@
     "module": "CommonJS",
     "moduleResolution": "node",
     "noEmit": false,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "outDir": "dist-seed"
   },
   "include": ["prisma/seed.ts", "prisma/seed-safe.ts"]
 }
